@@ -1,0 +1,30 @@
+version: '2'
+services:
+    reverseproxy:
+        image: reverseproxy
+        ports:
+            - 8080:8080
+        restart: always
+ 
+    nginx:
+        depends_on:
+            - reverseproxy
+        image: nginx
+        restart: always
+ 
+    node:
+        depends_on:
+            - reverseproxy
+        image: nrs-tutorijal6
+        ports:
+            - 3000:3000
+        restart: always
+    
+    bulletin:
+        depends_on:
+            - reverseproxy
+        image: bulletinv2
+        ports:
+            - 8090:8090
+        restart: always
+
